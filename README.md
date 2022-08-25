@@ -59,6 +59,13 @@ docker-compose up -d
 }
 ```
 
+## Добавление служб доставки
+Для добавления служы достаки необходимо:
+1. Создать новый модуль доставки реализующий 3 интерфейса:
+    - ```App\Components\DeliveryService\ServiceInterface```
+    - ```App\Components\DeliveryService\RequestAdapterInterface```
+    - ```App\Components\DeliveryService\ResponseAdapterInterface```
+2. Добавить сервис в поле ```$services``` класса ```App\Application\Actions\Delivery\DeliveryAction```
 ## TODO
 
 - [ ] Сделать более умный алгоритм компоновщика (добавить Knapsack Problem Algorithm)
