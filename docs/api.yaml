@@ -85,7 +85,3 @@ components:
       properties:
         status:
           type: string
-
-  examples:
-    DeliveryInfo:
-      $ref: '#/components/schemas/DeliveryInfo'
