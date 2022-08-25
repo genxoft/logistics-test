@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Api Interface</title>
+    <link rel="stylesheet" type="text/css" href="/swagger-ui/swagger-ui.css">
+    <link rel="stylesheet" type="text/css" href="/swagger-ui/index.css">
+</head>
+<body>
+<div id="swagger-ui"></div>
+
+<script src="/swagger-ui/swagger-ui-bundle.js"></script>
+<script src="/swagger-ui/swagger-ui-standalone-preset.js"></script>
+<script>
+    window.ui = SwaggerUIBundle({
+        url: "/docs/api-yaml",
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+            SwaggerUIBundle.presets.apis
+        ],
+        plugins: [
+            SwaggerUIBundle.plugins.DownloadUrl
+        ]
+    });
+</script>
+</body>
+</html>

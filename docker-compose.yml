@@ -1,0 +1,37 @@
+version: '3.7'
+
+volumes:
+    logs:
+        driver: local
+networks:
+    local:
+        driver: bridge
+
+services:
+    main:
+        image: php:8.1-cli-alpine
+        working_dir: /var/www
+        command: php -S 0.0.0.0:8080 -t public
+        environment:
+            docker: "true"
+        ports:
+            - "8080:8080"
+        volumes:
+            - .:/var/www
+            - logs:/var/www/logs
+        networks:
+            - local
+    mock:
+        image: php:8.1-cli-alpine
+        container_name: mock-service
+        working_dir: /var/www
+        command: php -S 0.0.0.0:8090 -t public
+        environment:
+            docker: "true"
+        ports:
+            - "8090:8090"
+        volumes:
+            - .:/var/www
+            - logs:/var/www/logs
+        networks:
+            - local

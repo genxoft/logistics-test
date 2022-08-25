@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Logistics test
+  description: Logistics test exercise
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api'
+    description: "default"
+  - url: 'http://172.19.166.22:8080/api'
+    description: "Feature of my local env"
+
+tags:
+  - name: delivery
+    description: "Delivery methods"
+
+  - name: service
+    description: "Service helpers"
+
+paths:
+  /health:
+    get:
+      tags:
+        - service
+      responses:
+        '200':
+          description: Health status
+          content:
+            'application/health+json':
+              schema:
+                $ref: '#/components/schemas/Health'
+
+  /delivery:
+    post:
+      tags:
+        - delivery
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+
+      responses:
+        '200':
+          description: Returns calculation result
+          content:
+            'application/json':
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DeliveryInfo'
+
+
+components:
+  schemas:
+    Item:
+      properties:
+        from:
+          type: string
+          example: "address1"
+        to:
+          type: string
+          example: "address2"
+        weight:
+          type: number
+          example: 0.2
+
+    DeliveryInfo:
+      properties:
+        price:
+          type: number
+          format: float
+        date:
+          type: string
+          format: date
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+
+    Health:
+      properties:
+        status:
+          type: string
+
+  examples:
+    DeliveryInfo:
+      $ref: '#/components/schemas/DeliveryInfo'
