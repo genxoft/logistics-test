@@ -10,6 +10,7 @@ networks:
 services:
     main:
         image: php:8.1-cli-alpine
+        container_name: main-service
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
@@ -18,20 +19,21 @@ services:
             - "8080:8080"
         volumes:
             - .:/var/www
-            - logs:/var/www/logs
         networks:
             - local
+        depends_on:
+            - mock
     mock:
         image: php:8.1-cli-alpine
         container_name: mock-service
         working_dir: /var/www
-        command: php -S 0.0.0.0:8090 -t public
+        command: php -S 0.0.0.0:8090 -t ./
         environment:
             docker: "true"
         ports:
             - "8090:8090"
         volumes:
-            - .:/var/www
+            - ./mock_services:/var/www
             - logs:/var/www/logs
         networks:
             - local

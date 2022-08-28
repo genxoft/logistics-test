@@ -6,9 +6,10 @@ use App\Domain\Kladr\DummyKladrRepository;
 use App\Domain\Kladr\KladrRepositoryInterface;
 use DI\ContainerBuilder;
 
-return function (ContainerBuilder $containerBuilder) {
+use function DI\autowire;
 
+return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        KladrRepositoryInterface::class => \DI\autowire(DummyKladrRepository::class),
+        KladrRepositoryInterface::class => autowire(DummyKladrRepository::class),
     ]);
 };

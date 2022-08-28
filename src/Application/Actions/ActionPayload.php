@@ -13,7 +13,7 @@ class ActionPayload implements JsonSerializable
     /**
      * @var array|object|null
      */
-    private $data;
+    private mixed $data;
 
     private ?ActionError $error;
 
@@ -35,7 +35,7 @@ class ActionPayload implements JsonSerializable
     /**
      * @return array|null|object
      */
-    public function getData()
+    public function getData(): object|array|null
     {
         return $this->data;
     }
@@ -54,6 +54,5 @@ class ActionPayload implements JsonSerializable
         } else {
             return new ActionError(ActionError::SERVER_ERROR, "Unexpected error");
         }
-
     }
 }

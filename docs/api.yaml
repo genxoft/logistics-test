@@ -40,6 +40,10 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/Item'
+            examples:
+              example1:
+                $ref: '#components/examples/ItemsExample'
+
 
       responses:
         '200':
@@ -85,3 +89,24 @@ components:
       properties:
         status:
           type: string
+
+  examples:
+    ItemsExample:
+      summary: Example request data
+      value: [
+        {
+          "from": "address1", "to": "address2", "weight": 0.2
+        },
+        {
+          "from": "address1", "to": "address2", "weight": 0.8
+        },
+        {
+          "from": "address1", "to": "address2", "weight": 0.1
+        },
+        {
+          "from": "address3", "to": "address4", "weight": 0.3
+        },
+        {
+          "from": "address3", "to": "address4", "weight": 0.3
+        }
+      ]

@@ -2,5 +2,5 @@
 .vscode/
 /coverage/
 /vendor/
-!/logs/README.md
-.phpunit.result.cache
+/.phpunit.result.cache
+/.php-cs-fixer.cache

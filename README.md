@@ -28,14 +28,21 @@ docker-compose up -d
 
 ## Описание
 Главный метод ```[POST] /api/delivery``` принимает на вход массив грузов и возвращает массив отправлений сгруппированный по службам доставки
-Алгоритм также учитывает, что служба доставки может иметь ограниченную массу одного отправления, в данном случае он компанует грузы в несколько доставок
+
+Алгоритм также учитывает, что служба доставки может иметь ограниченную массу одного отправления, в таком случае он компанует грузы в несколько доставок
+
+Запросы к службам доставки выполняются "асинхронно", чтобы ускорить время обработки и чтобы "зависание" на одной из служб не заставляло ждать другие 
 ### Request
-```
+```http
+POST http://localhost:8080/api/delivery
+Content-Type: application/json
+Accept: application/json
+
 [
     {
         "from": "<Код кладр>",
         "to": "<Код кладр>",
-        "weight": "<float>"
+        "weight": <float>
     },
     ...
 ]
@@ -45,7 +52,7 @@ docker-compose up -d
 {
     "fast": [
         {
-            "price": "<float>",
+            "price": <float>,
             "date": "<string>",
             "error": "<string>|null",
             "cargo": {
@@ -61,11 +68,12 @@ docker-compose up -d
 
 ## Добавление служб доставки
 Для добавления служы достаки необходимо:
-1. Создать новый модуль доставки реализующий 3 интерфейса:
-    - ```App\Components\DeliveryService\ServiceInterface```
-    - ```App\Components\DeliveryService\RequestAdapterInterface```
-    - ```App\Components\DeliveryService\ResponseAdapterInterface```
+1. Создать новый модуль службы доставки реализующий 3 интерфейса:
+    - ```App\DeliveryService\ServiceInterface```
+    - ```App\DeliveryService\RequestAdapterInterface```
+    - ```App\DeliveryService\ResponseAdapterInterface```
 2. Добавить сервис в поле ```$services``` класса ```App\Application\Actions\Delivery\DeliveryAction```
+
 ## TODO
 
 - [ ] Сделать более умный алгоритм компоновщика (добавить Knapsack Problem Algorithm)
